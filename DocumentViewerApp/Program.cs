@@ -1,5 +1,7 @@
 namespace DocumentViewerApp
 {
+    using DocumentViewerApp.Models;
+    using DocumentViewerApp.Services;
     public class Program
     {
         public static void Main(string[] args)
@@ -7,8 +9,14 @@ namespace DocumentViewerApp
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            //hariprasad
             builder.Services.AddControllersWithViews();
+
+            // Bind BlobStorage options and register the BlobStorageService
+            builder.Services.Configure<BlobStorageOptions>(
+                builder.Configuration.GetSection("BlobStorage"));
+            var options = builder.Configuration.GetSection("BlobStorage").Get<BlobStorageOptions>()
+                ?? new BlobStorageOptions();
+            builder.Services.AddSingleton(new BlobStorageService(options));
 
             var app = builder.Build();
 
