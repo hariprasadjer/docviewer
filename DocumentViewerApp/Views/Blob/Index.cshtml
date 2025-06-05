@@ -1,0 +1,41 @@
+@model IEnumerable<DocumentViewerApp.Models.BlobDocument>
+@{
+    ViewData["Title"] = "Blob Documents";
+}
+<h2>Blob Documents</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Extension</th>
+            <th>Size (KB)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var doc in Model)
+    {
+        <tr>
+            <td>@doc.Name</td>
+            <td>@doc.Extension</td>
+            <td>@doc.SizeKb</td>
+            <td>
+                <button class="btn btn-primary generate-url" data-name="@doc.Name">Generate URL</button>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+<script>
+    document.querySelectorAll('.generate-url').forEach(btn => {
+        btn.addEventListener('click', async () => {
+            const name = btn.dataset.name;
+            const resp = await fetch(`@Url.Action("GenerateUrl")?name=${encodeURIComponent(name)}`);
+            if (resp.ok) {
+                const data = await resp.json();
+                await navigator.clipboard.writeText(data.url);
+                alert('URL copied to clipboard');
+            }
+        });
+    });
+</script>
