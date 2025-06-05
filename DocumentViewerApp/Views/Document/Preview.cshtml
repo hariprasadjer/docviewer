@@ -1,0 +1,13 @@
+@model DocumentViewerApp.Models.DocumentViewModel
+@{
+    ViewData["Title"] = "Preview";
+    var extension = System.IO.Path.GetExtension(Model.DocumentUrl).ToLowerInvariant();
+}
+@if (extension == ".pdf")
+{
+    <iframe src="@Model.DocumentUrl" width="100%" height="600px"></iframe>
+}
+else
+{
+    <img src="@Model.DocumentUrl" class="img-fluid" alt="Preview" />
+}

@@ -29,7 +29,7 @@ namespace DocumentViewerApp
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Document}/{action=Index}/{id?}");
 
             app.Run();
         }
