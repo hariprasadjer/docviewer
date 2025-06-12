@@ -5,3 +5,5 @@
 /.vs
 /DocumentViewerApp/.vs/DocumentViewerApp
 /DocumentViewerApp/.vs/ProjectEvaluation
+[Bb]in/
+[Oo]bj/
